@@ -17,7 +17,8 @@ FSJS project 2 - List Filter and Pagination
    scoped to that function.
 ***/
 
-
+const studentList = document.querySelectorAll('.student-item');
+const numberOfItems = 10; 
 
 
 /*** 
@@ -35,7 +36,17 @@ FSJS project 2 - List Filter and Pagination
        "invoke" the function 
 ***/
 
+function showPage(list, page) {
+   const startIndex = (page * numberOfItems) - numberOfItems; 
+   const endIndex = page * numberOfItems; 
+   for(let i = 0; i < list.length; i++) {
+      if(i >= startIndex && i < endIndex) {
+         console.log(list[i]);
+      }
+   }
+}
 
+showPage(studentList, 1);
 
 
 /*** 
