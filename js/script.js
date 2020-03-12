@@ -10,7 +10,7 @@ function showPage(list, page) {
 
    for(let i = 0; i < list.length; i++) {
       if(i >= startIndex && i < endIndex) {
-         list[i].style.display = 'block';
+         list[i].style.display = '';
       } else {
          list[i].style.display = 'none';
       }
@@ -27,7 +27,7 @@ function appendPageLinks(list) {
    page.appendChild(pagination);
    pagination.appendChild(ul);
 
-   for(let i = 0; i <= (list.length / numberOfItems); i++) {
+   for(let i = 1; i < (list.length / numberOfItems + 1); i++) {
       ul.innerHTML += `<li><a href="#">${i}</a></li>`; 
    }
 
@@ -35,14 +35,16 @@ function appendPageLinks(list) {
    
    const anchor = document.querySelectorAll('.pagination a'); 
    pagination.addEventListener('click', (e) => {
+
       for(let i = 0; i < anchor.length; i++) {
-         if(e.target === anchor[i]) {
-            anchor[i].classList.add('active');
-            showPage(studentList, i);
-         } else {
+         if(e.target !== anchor[i]) {
             anchor[i].classList.remove('active');
-         }
+         }      
       }
+
+      e.target.classList.add('active');
+      showPage(studentList, e.target.textContent);
+
       e.preventDefault();
    });
 }
