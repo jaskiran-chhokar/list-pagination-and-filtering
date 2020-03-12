@@ -3,8 +3,7 @@ const studentList = document.querySelectorAll('.student-item');
 const numberOfItems = 10; 
 
 //Create Show Page Function
-
-function showPage(list, page) {
+const showPage = (list, page) => {
    const startIndex = (page * numberOfItems) - numberOfItems; 
    const endIndex = page * numberOfItems; 
 
@@ -18,8 +17,7 @@ function showPage(list, page) {
 }
 
 // Create Append Page Links Function
-
-function appendPageLinks(list) {
+const appendPageLinks = list => {
    const page = document.querySelector('.page');
    const pagination = document.createElement('div'); 
    const ul = document.createElement('ul');
