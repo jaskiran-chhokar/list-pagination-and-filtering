@@ -17,33 +17,36 @@ const showPage = (list, page) => {
 }
 
 // Create Append Page Links Function
+const page = document.querySelector('.page');
+
 const appendPageLinks = list => {
-   const page = document.querySelector('.page');
+
    const pagination = document.createElement('div'); 
    const ul = document.createElement('ul');
    pagination.classList.add('pagination');
    page.appendChild(pagination);
    pagination.appendChild(ul);
 
-   for(let i = 1; i < (list.length / numberOfItems + 1); i++) {
-      ul.innerHTML += `<li><a href="#">${i}</a></li>`; 
-   }
-
-   ul.firstElementChild.firstElementChild.className = 'active';
-   
-   const anchor = document.querySelectorAll('.pagination a'); 
-   pagination.addEventListener('click', e => {
-
-      for(let i = 0; i < anchor.length; i++) {
-         if(e.target !== anchor[i]) {
-            anchor[i].classList.remove('active');
-         }      
+   if(!ul.innerHTML === '') {
+      for(let i = 1; i < (list.length / numberOfItems + 1); i++) {
+         ul.innerHTML += `<li><a href="#">${i}</a></li>`; 
       }
 
-      e.target.classList.add('active');
-      showPage(list, e.target.textContent);
-      e.preventDefault();
-   });
+      ul.firstElementChild.firstElementChild.className = 'active';
+      
+      const anchor = document.querySelectorAll('.pagination a'); 
+      pagination.addEventListener('click', e => {
+
+         for(let i = 0; i < anchor.length; i++) {
+            if(e.target !== anchor[i]) {
+               anchor[i].classList.remove('active');
+            }      
+         }
+         e.target.classList.add('active');
+         showPage(list, e.target.textContent);
+         e.preventDefault();
+      });
+   }
 }
 
 showPage(studentList, 1);
@@ -60,25 +63,36 @@ pageHeader.appendChild(studentSearchDiv);
 const searchInput = document.querySelector('.student-search input'); 
 const searchButton = document.querySelector('.student-search button'); 
 const names = document.querySelectorAll('.student-details h3');
+//const watch = document.querySelectorAll('.watch');
 let paginationResults = []; 
 
 const search = (searchInput, names) => {
    const paginationContain = document.querySelector('.pagination');
+   let noResults = document.createElement('h3'); 
    paginationResults = [];
 
    for(let i = 0; i < names.length; i++) {
       let name = names[i].parentElement.parentElement;
       name.style.display = 'none';
+     // name.classList.remove('watch'); 
 
       if(searchInput.value !== 0 && names[i].textContent.toLowerCase().includes(searchInput.value.toLowerCase())) {
          name.style.display = 'block';
+      //   name.classList.add('watch'); 
          paginationResults.push(name);
-      }
+      } 
+      
+      // if (!name.classList.contains(watch)) {
+      //    page.appendChild(noResults); 
+      //    noResults.textContent = `There are no matches`;
+      // }
 
       if(searchInput.value === '') {
          name.style.display = 'block';
       } 
    }
+
+
 
    paginationContain.remove();
    appendPageLinks(paginationResults);
