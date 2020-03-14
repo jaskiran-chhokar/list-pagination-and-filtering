@@ -42,11 +42,14 @@ const appendPageLinks = list => {
 
       e.target.classList.add('active');
 
-      showPage(studentList, e.target.textContent);
+      showPage(list, e.target.textContent);
 
       e.preventDefault();
    });
 }
+
+showPage(studentList, 1);
+appendPageLinks(studentList);
 
 // Dynamically Insert Search Menu 
 const pageHeader = document.querySelector('.page-header'); 
@@ -60,10 +63,12 @@ const searchInput = document.querySelector('.student-search input');
 const searchButton = document.querySelector('.student-search button'); 
 const names = document.querySelectorAll('.student-details h3');
 
+
 let paginationResults = []; 
 
 const search = (searchInput, names) => {
 
+   const paginationContain = document.querySelector('.pagination');
    paginationResults = [];
 
    for(let i = 0; i < names.length; i++) {
@@ -74,20 +79,20 @@ const search = (searchInput, names) => {
       if(searchInput.value !== 0 && names[i].textContent.toLowerCase().includes(searchInput.value.toLowerCase())) {
          name.style.display = 'block';
          name.classList.add('watch'); 
-
          paginationResults.push(name);
-
       }
 
       if(searchInput.value === '') {
          name.style.display = 'block';
          name.classList.add('watch'); 
       } 
-
    }
 
-console.log(paginationResults);
+   paginationContain.remove();
+   appendPageLinks(paginationResults);
+   showPage(paginationResults,1);
 
+   console.log(paginationResults);
 }
 
 searchInput.addEventListener('keyup', () => {
@@ -99,8 +104,7 @@ searchButton.addEventListener('click', (e) => {
    e.preventDefault();
 });
 
-showPage(studentList, 1);
-appendPageLinks(studentList);
+
 
 
 
