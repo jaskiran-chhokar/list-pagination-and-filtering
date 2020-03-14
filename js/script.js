@@ -27,10 +27,11 @@ const appendPageLinks = list => {
    page.appendChild(pagination);
    pagination.appendChild(ul);
 
-   if(!ul.innerHTML === '') {
-      for(let i = 1; i < (list.length / numberOfItems + 1); i++) {
-         ul.innerHTML += `<li><a href="#">${i}</a></li>`; 
-      }
+   for(let i = 1; i < (list.length / numberOfItems + 1); i++) {
+      ul.innerHTML += `<li><a href="#">${i}</a></li>`; 
+   }
+
+   if(!(ul.innerHTML === '')) {
 
       ul.firstElementChild.firstElementChild.className = 'active';
       
@@ -46,6 +47,7 @@ const appendPageLinks = list => {
          showPage(list, e.target.textContent);
          e.preventDefault();
       });
+
    }
 }
 
@@ -91,8 +93,6 @@ const search = (searchInput, names) => {
          name.style.display = 'block';
       } 
    }
-
-
 
    paginationContain.remove();
    appendPageLinks(paginationResults);
