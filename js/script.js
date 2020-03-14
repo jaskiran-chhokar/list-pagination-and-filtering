@@ -41,26 +41,50 @@ const appendPageLinks = list => {
       }
 
       e.target.classList.add('active');
+
       showPage(studentList, e.target.textContent);
 
       e.preventDefault();
    });
 }
 
+// Dynamically Insert Search Menu 
+const pageHeader = document.querySelector('.page-header'); 
+const studentSearchDiv = document.createElement('div'); 
+studentSearchDiv.className = 'student-search'; 
+studentSearchDiv.innerHTML = `<input placeholder="Search for students..."><button>Search</button>`; 
+pageHeader.appendChild(studentSearchDiv);
+
 // Add Search Functionality to Search Bar
 const searchInput = document.querySelector('.student-search input'); 
 const searchButton = document.querySelector('.student-search button'); 
 const names = document.querySelectorAll('.student-details h3');
 
+let paginationResults = []; 
+const watch = document.querySelectorAll('.watch');
+
 const search = (searchInput, names) => {
 
    for(let i = 0; i < names.length; i++) {
-      names[i].parentElement.parentElement.style.display = 'none';
+      let name = names[i].parentElement.parentElement;
+      name.style.display = 'none';
+      name.classList.remove('watch'); 
 
       if(searchInput.value != 0 && names[i].textContent.toLowerCase().includes(searchInput.value.toLowerCase())) {
-         names[i].parentElement.parentElement.style.display = 'block';
+         name.style.display = 'block';
+         name.classList.add('watch'); 
+         paginationResults.push(name);
       }
+
+      if(searchInput.value === '') {
+         name.style.display = 'block';
+         name.classList.add('watch'); 
+      }  
+
    }
+
+   //console.log(paginationResults);
+
 }
 
 searchInput.addEventListener('keyup', () => {
@@ -74,4 +98,6 @@ searchButton.addEventListener('click', (e) => {
 
 showPage(studentList, 1);
 appendPageLinks(studentList);
+
+
 
