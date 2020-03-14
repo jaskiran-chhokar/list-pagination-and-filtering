@@ -32,7 +32,7 @@ const appendPageLinks = list => {
    ul.firstElementChild.firstElementChild.className = 'active';
    
    const anchor = document.querySelectorAll('.pagination a'); 
-   pagination.addEventListener('click', (e) => {
+   pagination.addEventListener('click', e => {
 
       for(let i = 0; i < anchor.length; i++) {
          if(e.target !== anchor[i]) {
@@ -41,9 +41,7 @@ const appendPageLinks = list => {
       }
 
       e.target.classList.add('active');
-
       showPage(list, e.target.textContent);
-
       e.preventDefault();
    });
 }
@@ -62,49 +60,36 @@ pageHeader.appendChild(studentSearchDiv);
 const searchInput = document.querySelector('.student-search input'); 
 const searchButton = document.querySelector('.student-search button'); 
 const names = document.querySelectorAll('.student-details h3');
-
-
 let paginationResults = []; 
 
 const search = (searchInput, names) => {
-
    const paginationContain = document.querySelector('.pagination');
    paginationResults = [];
 
    for(let i = 0; i < names.length; i++) {
       let name = names[i].parentElement.parentElement;
       name.style.display = 'none';
-      name.classList.remove('watch'); 
 
       if(searchInput.value !== 0 && names[i].textContent.toLowerCase().includes(searchInput.value.toLowerCase())) {
          name.style.display = 'block';
-         name.classList.add('watch'); 
          paginationResults.push(name);
       }
 
       if(searchInput.value === '') {
          name.style.display = 'block';
-         name.classList.add('watch'); 
       } 
    }
 
    paginationContain.remove();
    appendPageLinks(paginationResults);
    showPage(paginationResults,1);
-
-   console.log(paginationResults);
 }
 
 searchInput.addEventListener('keyup', () => {
    search(searchInput, names);
 });
 
-searchButton.addEventListener('click', (e) => {
+searchButton.addEventListener('click', e => {
    search(searchInput, names);
    e.preventDefault();
 });
-
-
-
-
-
