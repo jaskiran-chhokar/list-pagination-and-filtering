@@ -61,29 +61,32 @@ const searchButton = document.querySelector('.student-search button');
 const names = document.querySelectorAll('.student-details h3');
 
 let paginationResults = []; 
-const watch = document.querySelectorAll('.watch');
 
 const search = (searchInput, names) => {
+
+   paginationResults = [];
 
    for(let i = 0; i < names.length; i++) {
       let name = names[i].parentElement.parentElement;
       name.style.display = 'none';
       name.classList.remove('watch'); 
 
-      if(searchInput.value != 0 && names[i].textContent.toLowerCase().includes(searchInput.value.toLowerCase())) {
+      if(searchInput.value !== 0 && names[i].textContent.toLowerCase().includes(searchInput.value.toLowerCase())) {
          name.style.display = 'block';
          name.classList.add('watch'); 
+
          paginationResults.push(name);
+
       }
 
       if(searchInput.value === '') {
          name.style.display = 'block';
          name.classList.add('watch'); 
-      }  
+      } 
 
    }
 
-   //console.log(paginationResults);
+console.log(paginationResults);
 
 }
 
