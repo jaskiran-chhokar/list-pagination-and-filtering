@@ -11,4 +11,4 @@ To code out the functionality for this website, I used Vanilla JavaScript (ES6).
 As I was making improvements to this website, I kept the principal of "progressive enhancement" in mind. I wanted the website to be able to look nice and presentable even if we took the JavaScript code away. Although, the page will still display student names without JavaScript being enabled, it will be a much more improved/enhanced experience when it is.
 
 ### Live Version 
-Coming Soon!
+https://jaskiran-chhokar.github.io/list-pagination-and-filtering/
