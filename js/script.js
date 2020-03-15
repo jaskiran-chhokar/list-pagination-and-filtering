@@ -13,9 +13,7 @@ const showPage = (list, page) => {
 
    if(list.length > 0) {
       noMatches.style.display = 'none';
-   } 
-
-   if(list.length === 0) {
+   } else if (list.length === 0) {
       noMatches.style.display = 'block';
       noMatches.textContent = 'sorry, no matches found.';
    } 
