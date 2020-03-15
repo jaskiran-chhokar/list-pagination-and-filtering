@@ -1,13 +1,13 @@
-//Declare Global Variables
+// Declare Global Variables
 const studentList = document.querySelectorAll('.student-item');
 const pageClass = document.querySelector('.page');
 const numberOfItems = 10; 
 
-//Set Variable for No Search Results
+// Set Variable for No Search Results
 const noMatches = document.createElement('h3');
 pageClass.appendChild(noMatches);
 
-//Create Show Page Function
+// Create Show Page Function
 const showPage = (list, page) => {
    const startIndex = (page * numberOfItems) - numberOfItems; 
    const endIndex = page * numberOfItems; 
