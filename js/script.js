@@ -1,10 +1,11 @@
 //Declare Global Variables
 const studentList = document.querySelectorAll('.student-item');
-const p = document.querySelector('.page');
+const pageClass = document.querySelector('.page');
 const numberOfItems = 10; 
 
-let noMatches = document.createElement('h3');
-p.appendChild(noMatches);
+//Set Variable for No Search Results
+const noMatches = document.createElement('h3');
+pageClass.appendChild(noMatches);
 
 //Create Show Page Function
 const showPage = (list, page) => {
@@ -32,7 +33,7 @@ const appendPageLinks = list => {
    const pagination = document.createElement('div'); 
    const ul = document.createElement('ul');
    pagination.classList.add('pagination');
-   p.appendChild(pagination);
+   pageClass.appendChild(pagination);
    pagination.appendChild(ul);
 
    for(let i = 1; i < (list.length / numberOfItems + 1); i++) {
@@ -63,20 +64,24 @@ showPage(studentList, 1);
 appendPageLinks(studentList);
 
 // Dynamically Insert Search Menu 
-const pageHeader = document.querySelector('.page-header'); 
-const studentSearchDiv = document.createElement('div'); 
-studentSearchDiv.className = 'student-search'; 
-studentSearchDiv.innerHTML = `<input placeholder="Search for students..."><button>Search</button>`; 
-pageHeader.appendChild(studentSearchDiv);
+const insertSearchMenu = () => {
+   const pageHeader = document.querySelector('.page-header'); 
+   const studentSearchDiv = document.createElement('div'); 
+   studentSearchDiv.className = 'student-search'; 
+   studentSearchDiv.innerHTML = `<input placeholder="Search for students..."><button>Search</button>`; 
+   pageHeader.appendChild(studentSearchDiv);
+}
+
+insertSearchMenu();
 
 // Add Search Functionality to Search Bar
 const searchInput = document.querySelector('.student-search input'); 
 const searchButton = document.querySelector('.student-search button'); 
 const names = document.querySelectorAll('.student-details h3');
-const watch = document.querySelectorAll('.watch');
 let paginationResults = []; 
 
 const search = (searchInput, names) => {
+
    const paginationContain = document.querySelector('.pagination');
 
    paginationResults = [];
@@ -84,11 +89,9 @@ const search = (searchInput, names) => {
    for(let i = 0; i < names.length; i++) {
       let name = names[i].parentElement.parentElement;
       name.style.display = 'none';
-      name.classList.remove('watch'); 
 
       if(searchInput.value !== 0 && names[i].textContent.toLowerCase().includes(searchInput.value.toLowerCase())) {
          name.style.display = 'block';
-         name.classList.add('watch'); 
          paginationResults.push(name);
       }
 
