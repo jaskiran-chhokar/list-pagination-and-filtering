@@ -1,11 +1,24 @@
 //Declare Global Variables
 const studentList = document.querySelectorAll('.student-item');
+const p = document.querySelector('.page');
 const numberOfItems = 10; 
+
+let noMatches = document.createElement('h3');
+p.appendChild(noMatches);
 
 //Create Show Page Function
 const showPage = (list, page) => {
    const startIndex = (page * numberOfItems) - numberOfItems; 
    const endIndex = page * numberOfItems; 
+
+   if(list.length > 0) {
+      noMatches.style.display = 'none';
+   } 
+
+   if(list.length === 0) {
+      noMatches.style.display = 'block';
+      noMatches.textContent = 'sorry, no matches found.';
+   } 
 
    for(let i = 0; i < list.length; i++) {
       if(i >= startIndex && i < endIndex) {
@@ -17,14 +30,11 @@ const showPage = (list, page) => {
 }
 
 // Create Append Page Links Function
-const page = document.querySelector('.page');
-
 const appendPageLinks = list => {
-
    const pagination = document.createElement('div'); 
    const ul = document.createElement('ul');
    pagination.classList.add('pagination');
-   page.appendChild(pagination);
+   p.appendChild(pagination);
    pagination.appendChild(ul);
 
    for(let i = 1; i < (list.length / numberOfItems + 1); i++) {
@@ -65,35 +75,30 @@ pageHeader.appendChild(studentSearchDiv);
 const searchInput = document.querySelector('.student-search input'); 
 const searchButton = document.querySelector('.student-search button'); 
 const names = document.querySelectorAll('.student-details h3');
-//const watch = document.querySelectorAll('.watch');
+const watch = document.querySelectorAll('.watch');
 let paginationResults = []; 
 
 const search = (searchInput, names) => {
    const paginationContain = document.querySelector('.pagination');
-   let noResults = document.createElement('h3'); 
+
    paginationResults = [];
 
    for(let i = 0; i < names.length; i++) {
       let name = names[i].parentElement.parentElement;
       name.style.display = 'none';
-     // name.classList.remove('watch'); 
+      name.classList.remove('watch'); 
 
       if(searchInput.value !== 0 && names[i].textContent.toLowerCase().includes(searchInput.value.toLowerCase())) {
          name.style.display = 'block';
-      //   name.classList.add('watch'); 
+         name.classList.add('watch'); 
          paginationResults.push(name);
-      } 
-      
-      // if (!name.classList.contains(watch)) {
-      //    page.appendChild(noResults); 
-      //    noResults.textContent = `There are no matches`;
-      // }
+      }
 
       if(searchInput.value === '') {
          name.style.display = 'block';
       } 
    }
-
+   
    paginationContain.remove();
    appendPageLinks(paginationResults);
    showPage(paginationResults,1);
